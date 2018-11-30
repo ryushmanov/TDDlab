@@ -163,5 +163,15 @@ namespace TDDlab
             }
             File.WriteAllLines(path, delete);
         }
+
+        public void FindFile(object sender, EventArgs e)
+        {
+        }
+
+        public bool PathCheck(string path)
+        {
+            bool err = false;
+            return err;
+        }
     }
 }
