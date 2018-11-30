@@ -163,6 +163,5 @@ namespace TDDlab
             }
             File.WriteAllLines(path, delete);
         }
-
     }
 }
