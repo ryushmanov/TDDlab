@@ -106,7 +106,7 @@ namespace TDDlab
 
         public int UserCheck()
         {
-            int index = -1;
+            int userindex = -1;
             bool err = false;
             bool loginxst = false;
             err = EmptyCheck();
@@ -126,7 +126,7 @@ namespace TDDlab
                         }
                         else
                         {
-                            index = i;
+                            userindex = i;
                             break;
                         }
                     }
@@ -137,7 +137,7 @@ namespace TDDlab
                     toolTip.SetToolTip(loginerr, "Введен неправильный логин");
                 }
             }
-            return index;
+            return userindex;
         }
 
     }
