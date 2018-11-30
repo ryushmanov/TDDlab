@@ -206,8 +206,8 @@ namespace TDDlab
         public bool PathCheck(string path)
         {
             bool err = false;
-            char[] invalidFileChars = Path.GetInvalidFileNameChars();
-            foreach (char c in invalidFileChars)
+            char[] badchars = Path.GetInvalidFileNameChars();
+            foreach (char c in badchars)
             {
                 if (path.Contains(c))
                 {
