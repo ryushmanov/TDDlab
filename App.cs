@@ -142,7 +142,26 @@ namespace TDDlab
 
         public void DeleteUser(object sender, EventArgs e)
         {
+            passerr.Visible = false;
+            loginerr.Visible = false;
+            int userindex = UserCheck();
+            if (userindex != -1)
+            {
+                RemoveLine(userindex);
+                MessageBox.Show("Пользователь успешно удален", "Удаление пользователя", MessageBoxButtons.OK);
+                GetUsers();
+            }
+        }
 
+        public void RemoveLine(int user)
+        {
+            string[] delete = new string[users.Length - 1];
+            users[user] = users[users.Length - 1];
+            for (int i = 0; i < delete.Length; i++)
+            {
+                delete[i] = users[i];
+            }
+            File.WriteAllLines(path, delete);
         }
 
     }
