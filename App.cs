@@ -95,5 +95,13 @@ namespace TDDlab
                 loginpass[i, 1] = users[i].Split('\t')[1];
             }
         }
+
+        public void LoginUser(object sender, EventArgs e)
+        {
+            passerr.Visible = false;
+            loginerr.Visible = false;
+            if (UserCheck() != -1)
+                MessageBox.Show("Логин и пароль успешно подтверждены", "Проверка правильности", MessageBoxButtons.OK);
+        }
     }
 }
