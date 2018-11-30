@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.patherr = new System.Windows.Forms.Label();
             this.button4 = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -42,6 +43,7 @@
             this.pass = new System.Windows.Forms.TextBox();
             this.login = new System.Windows.Forms.TextBox();
             this.AddButton = new System.Windows.Forms.Button();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // patherr
@@ -225,6 +227,7 @@
         public System.Windows.Forms.TextBox pass;
         public System.Windows.Forms.TextBox login;
         private System.Windows.Forms.Button AddButton;
+        private System.Windows.Forms.ToolTip toolTip;
     }
 }
 

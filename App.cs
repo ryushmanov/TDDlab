@@ -47,5 +47,52 @@ namespace TDDlab
                 GetUsers();
             }
         }
+
+        public bool EmptyCheck()
+        {
+            bool err = false;
+            if (login.Text == "")
+            {
+                err = true;
+                loginerr.Visible = true;
+                toolTip.SetToolTip(loginerr, "Введите логин");
+            }
+            if (pass.Text == "")
+            {
+                err = true;
+                passerr.Visible = true;
+                toolTip.SetToolTip(passerr, "Введите пароль");
+            }
+            return err;
+        }
+
+        public string PassHash(string input)
+        {
+            System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
+            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+            byte[] hash = md5.ComputeHash(inputBytes);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+                sb.Append(hash[i].ToString("X2"));
+            return sb.ToString();
+        }
+
+        public void AddLine(string s)
+        {
+            StreamWriter encoded = new StreamWriter(path, true);
+            encoded.WriteLine(s);
+            encoded.Close();
+        }
+
+        public void GetUsers()
+        {
+            users = File.ReadAllLines(path);
+            loginpass = new string[users.Length, 2];
+            for (int i = 0; i < users.Length; i++)
+            {
+                loginpass[i, 0] = users[i].Split('\t')[0];
+                loginpass[i, 1] = users[i].Split('\t')[1];
+            }
+        }
     }
 }
