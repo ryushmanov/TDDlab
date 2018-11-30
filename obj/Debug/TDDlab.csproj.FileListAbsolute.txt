@@ -1,1 +1,5 @@
 C:\Users\User\Documents\Visual Studio 2013\Projects\TDDlab\TDDlab\bin\Debug\TDDlab.exe.config
+C:\Users\User\Documents\Visual Studio 2013\Projects\TDDlab\TDDlab\obj\Debug\TDDlab.csprojResolveAssemblyReference.cache
+C:\Users\User\Documents\Visual Studio 2013\Projects\TDDlab\TDDlab\obj\Debug\TDDlab.App.resources
+C:\Users\User\Documents\Visual Studio 2013\Projects\TDDlab\TDDlab\obj\Debug\TDDlab.Properties.Resources.resources
+C:\Users\User\Documents\Visual Studio 2013\Projects\TDDlab\TDDlab\obj\Debug\TDDlab.csproj.GenerateResource.Cache
