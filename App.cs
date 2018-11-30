@@ -140,5 +140,10 @@ namespace TDDlab
             return userindex;
         }
 
+        public void DeleteUser(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }
