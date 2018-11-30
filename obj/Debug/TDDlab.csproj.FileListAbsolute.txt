@@ -3,3 +3,7 @@ C:\Users\User\Documents\Visual Studio 2013\Projects\TDDlab\TDDlab\obj\Debug\TDDl
 C:\Users\User\Documents\Visual Studio 2013\Projects\TDDlab\TDDlab\obj\Debug\TDDlab.App.resources
 C:\Users\User\Documents\Visual Studio 2013\Projects\TDDlab\TDDlab\obj\Debug\TDDlab.Properties.Resources.resources
 C:\Users\User\Documents\Visual Studio 2013\Projects\TDDlab\TDDlab\obj\Debug\TDDlab.csproj.GenerateResource.Cache
+C:\Users\User\Documents\Visual Studio 2013\Projects\TDDlab\TDDlab\bin\Debug\TDDlab.exe
+C:\Users\User\Documents\Visual Studio 2013\Projects\TDDlab\TDDlab\bin\Debug\TDDlab.pdb
+C:\Users\User\Documents\Visual Studio 2013\Projects\TDDlab\TDDlab\obj\Debug\TDDlab.exe
+C:\Users\User\Documents\Visual Studio 2013\Projects\TDDlab\TDDlab\obj\Debug\TDDlab.pdb
