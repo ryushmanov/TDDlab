@@ -103,5 +103,42 @@ namespace TDDlab
             if (UserCheck() != -1)
                 MessageBox.Show("Логин и пароль успешно подтверждены", "Проверка правильности", MessageBoxButtons.OK);
         }
+
+        public int UserCheck()
+        {
+            int index = -1;
+            bool err = false;
+            bool loginxst = false;
+            err = EmptyCheck();
+            string password = PassHash(pass.Text);
+            if (err == false)
+            {
+                for (int i = 0; i < loginpass.GetLength(0); i++)
+                {
+                    if (loginpass[i, 0].Equals(login.Text))
+                    {
+                        loginxst = true;
+                        if (!loginpass[i, 1].Equals(password))
+                        {
+                            passerr.Visible = true;
+                            toolTip.SetToolTip(passerr, "Введен неправильный пароль");
+                            break;
+                        }
+                        else
+                        {
+                            index = i;
+                            break;
+                        }
+                    }
+                }
+                if (loginxst == false)
+                {
+                    loginerr.Visible = true;
+                    toolTip.SetToolTip(loginerr, "Введен неправильный логин");
+                }
+            }
+            return index;
+        }
+
     }
 }
