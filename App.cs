@@ -48,54 +48,6 @@ namespace TDDlab
                 GetUsers();
             }
         }
-
-        public bool EmptyCheck()
-        {
-            bool err = false;
-            if (login.Text == "")
-            {
-                err = true;
-                loginerr.Visible = true;
-                toolTip.SetToolTip(loginerr, "Введите логин");
-            }
-            if (pass.Text == "")
-            {
-                err = true;
-                passerr.Visible = true;
-                toolTip.SetToolTip(passerr, "Введите пароль");
-            }
-            return err;
-        }
-
-        public string PassHash(string input)
-        {
-            System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
-            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
-            byte[] hash = md5.ComputeHash(inputBytes);
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < hash.Length; i++)
-                sb.Append(hash[i].ToString("X2"));
-            return sb.ToString();
-        }
-
-        public void AddLine(string s)
-        {
-            StreamWriter encoded = new StreamWriter(path, true);
-            encoded.WriteLine(s);
-            encoded.Close();
-        }
-
-        public void GetUsers()
-        {
-            users = File.ReadAllLines(path);
-            loginpass = new string[users.Length, 2];
-            for (int i = 0; i < users.Length; i++)
-            {
-                loginpass[i, 0] = users[i].Split('\t')[0];
-                loginpass[i, 1] = users[i].Split('\t')[1];
-            }
-        }
-
         public void LoginUser(object sender, EventArgs e)
         {
             passerr.Visible = false;
@@ -103,43 +55,6 @@ namespace TDDlab
             if (UserCheck() != -1)
                 MessageBox.Show("Логин и пароль успешно подтверждены", "Проверка правильности", MessageBoxButtons.OK);
         }
-
-        public int UserCheck()
-        {
-            int userindex = -1;
-            bool err = false;
-            bool loginxst = false;
-            err = EmptyCheck();
-            string password = PassHash(pass.Text);
-            if (err == false)
-            {
-                for (int i = 0; i < loginpass.GetLength(0); i++)
-                {
-                    if (loginpass[i, 0].Equals(login.Text))
-                    {
-                        loginxst = true;
-                        if (!loginpass[i, 1].Equals(password))
-                        {
-                            passerr.Visible = true;
-                            toolTip.SetToolTip(passerr, "Введен неправильный пароль");
-                            break;
-                        }
-                        else
-                        {
-                            userindex = i;
-                            break;
-                        }
-                    }
-                }
-                if (loginxst == false)
-                {
-                    loginerr.Visible = true;
-                    toolTip.SetToolTip(loginerr, "Введен неправильный логин");
-                }
-            }
-            return userindex;
-        }
-
         public void DeleteUser(object sender, EventArgs e)
         {
             passerr.Visible = false;
@@ -152,18 +67,6 @@ namespace TDDlab
                 GetUsers();
             }
         }
-
-        public void RemoveLine(int user)
-        {
-            string[] delete = new string[users.Length - 1];
-            users[user] = users[users.Length - 1];
-            for (int i = 0; i < delete.Length; i++)
-            {
-                delete[i] = users[i];
-            }
-            File.WriteAllLines(path, delete);
-        }
-
         public void FindFile(object sender, EventArgs e)
         {
             if (pathTextBox.Text != "")
@@ -203,11 +106,63 @@ namespace TDDlab
             }
         }
 
+        public bool EmptyCheck()
+        {
+            bool err = false;
+            if (login.Text == "")
+            {
+                err = true;
+                loginerr.Visible = true;
+                toolTip.SetToolTip(loginerr, "Введите логин");
+            }
+            if (pass.Text == "")
+            {
+                err = true;
+                passerr.Visible = true;
+                toolTip.SetToolTip(passerr, "Введите пароль");
+            }
+            return err;
+        }
+        public int UserCheck()
+        {
+            int index = -1;
+            bool err = false;
+            bool loginxst = false;
+            err = EmptyCheck();
+            string password = PassHash(pass.Text);
+            if (err == false)
+            {
+                for (int i = 0; i < loginpass.GetLength(0); i++)
+                {
+                    if (loginpass[i, 0].Equals(login.Text))
+                    {
+                        loginxst = true;
+                        if (!loginpass[i, 1].Equals(password))
+                        {
+                            passerr.Visible = true;
+                            toolTip.SetToolTip(passerr, "Введен неправильный пароль");
+                            break;
+                        }
+                        else
+                        {
+                            index = i;
+                            break;
+                        }
+                    }
+                }
+                if (loginxst == false)
+                {
+                    loginerr.Visible = true;
+                    toolTip.SetToolTip(loginerr, "Введен неправильный логин");
+                }
+            }
+            return index;
+        }
         public bool PathCheck(string path)
         {
             bool err = false;
-            char[] badchars = Path.GetInvalidFileNameChars();
-            foreach (char c in badchars)
+            char[] invalidFileChars = Path.GetInvalidFileNameChars();
+            foreach (char c in invalidFileChars)
             {
                 if (path.Contains(c))
                 {
@@ -217,6 +172,54 @@ namespace TDDlab
                 }
             }
             return err;
+        }
+        public void pass_TextChanged(object sender, EventArgs e)
+        {
+            passerr.Visible = false;
+        }
+        public void login_TextChanged(object sender, EventArgs e)
+        {
+            loginerr.Visible = false;
+        }
+        public void pathTextBox_TextChanged(object sender, EventArgs e)
+        {
+            patherr.Visible = false;
+        }
+        public void GetUsers()
+        {
+            users = File.ReadAllLines(path);
+            loginpass = new string[users.Length, 2];
+            for (int i = 0; i < users.Length; i++)
+            {
+                loginpass[i, 0] = users[i].Split('\t')[0];
+                loginpass[i, 1] = users[i].Split('\t')[1];
+            }
+        }
+        public void AddLine(string s)
+        {
+            StreamWriter encoded = new StreamWriter(path, true);
+            encoded.WriteLine(s);
+            encoded.Close();
+        }
+        public void RemoveLine(int user)
+        {
+            string[] delete = new string[users.Length - 1];
+            users[user] = users[users.Length - 1];
+            for (int i = 0; i < delete.Length; i++)
+            {
+                delete[i] = users[i];
+            }
+            File.WriteAllLines(path, delete);
+        }
+        public string PassHash(string input)
+        {
+            System.Security.Cryptography.MD5 md5 = System.Security.Cryptography.MD5.Create();
+            byte[] inputBytes = System.Text.Encoding.ASCII.GetBytes(input);
+            byte[] hash = md5.ComputeHash(inputBytes);
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < hash.Length; i++)
+                sb.Append(hash[i].ToString("X2"));
+            return sb.ToString();
         }
     }
 }
