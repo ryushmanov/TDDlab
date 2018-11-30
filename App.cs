@@ -166,11 +166,56 @@ namespace TDDlab
 
         public void FindFile(object sender, EventArgs e)
         {
+            if (pathTextBox.Text != "")
+            {
+                path = @"" + pathTextBox.Text + ".txt";
+                if (File.Exists(path))
+                {
+                    GetUsers();
+                    AddButton.Enabled = true;
+                    LoginButton.Enabled = true;
+                    DelButton.Enabled = true;
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show("Файл с указанным именем не найден. Создать файл?", "Ошибка", MessageBoxButtons.YesNo, MessageBoxIcon.Error);
+                    if (result == DialogResult.Yes && PathCheck(path) == false)
+                    {
+                        File.Create(path).Close();
+                        MessageBox.Show("Файл " + path + " успешно создан", "Создание файла", MessageBoxButtons.OK);
+                        GetUsers();
+                        AddButton.Enabled = true;
+                        LoginButton.Enabled = true;
+                        DelButton.Enabled = true;
+                    }
+                    else
+                    {
+                        AddButton.Enabled = false;
+                        LoginButton.Enabled = false;
+                        DelButton.Enabled = false;
+                    }
+                }
+            }
+            else
+            {
+                patherr.Visible = true;
+                toolTip.SetToolTip(patherr, "Введите имя файла");
+            }
         }
 
         public bool PathCheck(string path)
         {
             bool err = false;
+            char[] invalidFileChars = Path.GetInvalidFileNameChars();
+            foreach (char c in invalidFileChars)
+            {
+                if (path.Contains(c))
+                {
+                    err = true;
+                    MessageBox.Show("Имя файла не должно содержать следующих знаков: \\ / : * ? \" < > |", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                }
+            }
             return err;
         }
     }
